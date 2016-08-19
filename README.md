@@ -12,6 +12,6 @@
 
 ## Screenshot
 
-![](web/img/shot.png)
+![](web/img/shots.png)
 
 

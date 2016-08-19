@@ -11,7 +11,10 @@
 </head>
 
 <body>
-<div id="title">Chat Room</div>
+<div id="title">
+    Chat Room <br/>
+    <small style="font-size: 0.4em">(文字末@小方可召唤小方自动回复)</small>
+</div>
 <div id="convo">
     <ul class="chat-thread">
     </ul>
@@ -31,7 +34,7 @@
     var insert = document.getElementsByClassName("chat-thread")[0];
     insert.scrollTop = insert.scrollHeight;
     var webSocket =
-            new WebSocket('ws://192.168.1.102:8080/websocket/'+$.cookie("name"));
+            new WebSocket('ws://192.168.1.102:8081/websocket/'+$.cookie("name"));
 
     webSocket.onerror = function (event) {
         onError(event)

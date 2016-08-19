@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chat Room</title>
+    <link rel="stylesheet" href="css/style.css" media="screen" type="text/css"/>
+    <link rel="shortcut icon" href="img/owl.ico" />
+    <script src='js/jquery.js'></script>
+    <script src="js/jquery.cookie.js"></script>
+</head>
+
+<body>
+<div id="title">Chat Room</div>
+<div id="convo">
+    <ul class="chat-thread">
+    </ul>
+</div>
+
+<div class="send">
+    <textarea name="message" id="message"></textarea>
+</div>
+
+<div class="credits">Powered By GuangxinYuan</div>
+
+<script type="text/javascript">
+    if($.cookie("name")==null) {
+        var name = prompt("Input Your Name", "");
+        $.cookie("name",name);
+    }
+    var insert = document.getElementsByClassName("chat-thread")[0];
+    insert.scrollTop = insert.scrollHeight;
+    var webSocket =
+            new WebSocket('ws://192.168.1.102:8080/websocket/'+$.cookie("name"));
+
+    webSocket.onerror = function (event) {
+        onError(event)
+    };
+
+    webSocket.onopen = function (event) {
+        onOpen(event)
+    };
+
+    webSocket.onmessage = function (event) {
+        onMessage(event)
+    };
+
+    function onMessage(event) {
+        var c_name = event.data.substr(0,event.data.indexOf(">"));
+        if(c_name==$.cookie("name")){
+            var val = event.data.substr(event.data.indexOf(">")+1,event.data.length);
+            insert.innerHTML += "<li class='odd'>"+val+"</li>";
+        }else {
+            insert.innerHTML += "<li class='even'>" + event.data + "</li>"
+        }
+        insert.scrollTop = insert.scrollHeight
+    }
+
+    function onOpen(event) {
+    }
+
+    function onError(event) {
+        alert(event.data);
+    }
+
+    function start() {
+        var mes = document.getElementById("message").value;
+        webSocket.send(mes);
+        return false;
+    }
+    document.body.onkeydown = function () {
+        if(event.keyCode == 13){
+            event.preventDefault();
+            start();
+            document.getElementById("message").value = "";
+        }
+    }
+</script>
+</body>
+</html>

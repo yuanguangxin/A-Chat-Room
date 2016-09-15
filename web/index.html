@@ -34,7 +34,7 @@
     var insert = document.getElementsByClassName("chat-thread")[0];
     insert.scrollTop = insert.scrollHeight;
     var webSocket =
-            new WebSocket('ws://192.168.1.102:8081/websocket/'+$.cookie("name"));
+            new WebSocket('ws://localhost:8081/websocket/'+$.cookie("name"));
 
     webSocket.onerror = function (event) {
         onError(event)

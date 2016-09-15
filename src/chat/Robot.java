@@ -20,7 +20,7 @@ public class Robot {
     public static String machine(String quesiton) throws IOException {
         //接入机器人，输入问题
         String APIKEY = "c3e7b53ff14bd226f036bdd952f191c5";
-        String INFO = URLEncoder.encode(quesiton, "utf-8");//这里可以输入问题
+        String INFO = URLEncoder.encode(quesiton, "utf-8");
         String getURL = "http://www.tuling123.com/openapi/api?key=" + APIKEY + "&info=" + INFO;
         URL getUrl = new URL(getURL);
         HttpURLConnection connection = (HttpURLConnection) getUrl.openConnection();

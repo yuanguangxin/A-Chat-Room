@@ -34,7 +34,7 @@
     var insert = document.getElementsByClassName("chat-thread")[0];
     insert.scrollTop = insert.scrollHeight;
     var webSocket =
-            new WebSocket('ws://localhost:8081/websocket/'+$.cookie("name"));
+            new WebSocket('ws://localhost:8080/chat/websocket/'+$.cookie("name"));
 
     webSocket.onerror = function (event) {
         onError(event)
@@ -75,6 +75,7 @@
         if(event.keyCode == 13){
             event.preventDefault();
             start();
+            console.log("start()");
             document.getElementById("message").value = "";
         }
     }

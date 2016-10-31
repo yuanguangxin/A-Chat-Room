@@ -12,7 +12,7 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
-@ServerEndpoint(value = "/websocket/{nickName}")
+@ServerEndpoint(value = "/chat/websocket/{nickName}")
 public class Chat {
 
     /**
@@ -57,6 +57,7 @@ public class Chat {
         connections.remove(this);
         String message = String.format("System> %s, %s", this.nickName,
                 " 退出群聊.");
+        System.out.println("Already Close");
         Chat.broadCast(message);
     }
 
